@@ -1,44 +1,61 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: clustermonitor
+  name: clustermonitor-deployment
 {{- if .Values.namespaceSpyderbat.enabled }}
   namespace: spyderbat
 {{- end }}
 {{- if not .Values.namespaceSpyderbat.enabled }}
   namespace: default
 {{- end }}
-
+  labels:
+    app: clustermonitor
 spec:
-  serviceAccountName: {{ .Values.serviceAccount.name }}
-{{- if .Values.priorityClassDefault.enabled }}
-  priorityClassName: spyderbat-high-priority
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clustermonitor
+  template:
+    metadata:      
+      name: clustermonitor
+{{- if .Values.namespaceSpyderbat.enabled }}
+      namespace: spyderbat
 {{- end }}
-  containers:
-  - name: spyderbat-clustermonitor
-    image: {{ .Values.image.registry}}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
-    imagePullPolicy: {{ .Values.image.pullpolicy }}
-    env:
-      - name: AGENT_REGISTRATION_CODE
-        value: {{ .Values.nanoagent.agentRegistrationCode  }}
-      - name: ORC_URL
-        value: {{  .Values.nanoagent.orcurl }}
-      - name: http_proxy
-        value: {{  .Values.nanoagent.httpproxy }}
-      - name: https_proxy
-        value: {{ .Values.nanoagent.httpsproxy }}
-      - name: HTTP_PROXY
-        value: {{ .Values.nanoagent.httpproxy }}
-      - name: HTTPS_PROXY
-        value: {{ .Values.nanoagent.httpsproxy }}
-      - name:  SPYDERBAT_TAGS
-        value: {{ .Values.spyderbat_tags }}
-      - name: K8SMONITOR
-        value: "yes"
-    resources:
-      requests:
-        cpu: {{ .Values.resources.requests.cpu }}
-        memory: {{ .Values.resources.requests.memory }}        
-      limits:
-        cpu: {{ .Values.resources.limits.cpu }}
-        memory: {{ .Values.resources.limits.memory }}
+{{- if not .Values.namespaceSpyderbat.enabled }}
+      namespace: default
+{{- end }}
+      labels:
+        app: clustermonitor
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+{{- if .Values.priorityClassDefault.enabled }}
+      priorityClassName: spyderbat-high-priority
+{{- end }}
+      containers:
+        - name: clustermonitor
+          image: {{ .Values.image.registry}}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullpolicy }}
+          env:
+            - name: AGENT_REGISTRATION_CODE
+              value: {{ .Values.nanoagent.agentRegistrationCode  }}
+            - name: ORC_URL
+              value: {{  .Values.nanoagent.orcurl }}
+            - name: http_proxy
+              value: {{  .Values.nanoagent.httpproxy }}
+            - name: https_proxy
+              value: {{ .Values.nanoagent.httpsproxy }}
+            - name: HTTP_PROXY
+              value: {{ .Values.nanoagent.httpproxy }}
+            - name: HTTPS_PROXY
+              value: {{ .Values.nanoagent.httpsproxy }}
+            - name:  SPYDERBAT_TAGS
+              value: {{ .Values.spyderbat_tags }}
+            - name: K8SMONITOR
+              value: "yes"
+          resources:
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}        
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
