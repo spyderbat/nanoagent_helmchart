@@ -1,0 +1,57 @@
+
+# Image location for Spyderbat Nano Agent
+image:
+  registry: public.ecr.aws
+  repository: a6j2k0g1/nano-agent
+  tag: latest
+  pullPolicy: Always
+  pullSecrets: []
+
+# Enables Kubernetes meta data collection via a connection to the Kubernetes API server.
+kubernetesSupport:
+  enabled: true
+  apiAuth: /var/run/secrets/kubernetes.io/serviceaccount/token
+  apiUrl: "https://$(KUBERNETES_SERVICE_HOST)"
+
+
+# Reasonable resource defaults.  May need to be larger on particularly large systems
+resources:
+  requests:
+    cpu: 100m
+    memory: 512Mi
+  limits:
+    cpu: 1000m
+    memory: 2048Mi
+
+# Priority class for Spyderbat Nano Agent.   An agent is desired on each node of the cluster
+# Disabled by default to prevent doing harm.
+priorityClassDefault:
+  enabled: false
+  name: default
+  value: 1000
+
+# Install in to the Spyderbat namespace, else default is used.
+namespaceSpyderbat:
+  enabled: true
+
+# Create a service account
+serviceAccount:
+  create: true
+  name: spyderbat-serviceaccount
+  annotations: { }
+  role: cluster-admin
+  
+    
+# Daemonset update policy
+daemonset:
+  updateStrategy:
+    type: RollingUpdate
+
+  env: {}
+
+  podAnnotations: {}
+
+# Additional pod labels
+podLabels: {}
+
+

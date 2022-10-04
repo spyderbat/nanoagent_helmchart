@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: spyderbat-nanoagent
+{{- if .Values.namespaceSpyderbat.enabled }}
+  namespace: spyderbat
+{{- end }}
+{{- if not .Values.namespaceSpyderbat.enabled }}
+  namespace: default
+{{- end }}
+  
+  labels:
+    k8s-app: spyderbat-nanoagent
+    version: v1
+spec:
+  selector:
+    matchLabels:
+      name: spyderbat-nanoagent
+  template:
+    metadata:
+      labels:
+        name: spyderbat-nanoagent
+        k8s-app: spyderbat-nanoagent
+        version: v1
+{{- with .Values.podLabels }}
+{{ toYaml . | indent 9 }}
+{{- end }}
+    spec:
+      hostPID: true
+      hostNetwork: true
+{{- if .Values.priorityClassDefault.enabled }}
+      priorityClassName: spyderbat-high-priority
+{{- end }}
+      containers:
+        - name: spyderbat-nanoagent
+          image: {{ .Values.image.registry}}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullpolicy }}
+          env:
+            - name: AGENT_REGISTRATION_CODE
+              value: {{ .Values.nanoagent.agentRegistrationCode  }}
+            - name: ORC_URL
+              value: {{  .Values.nanoagent.orcurl }}
+            - name: http_proxy
+              value: {{  .Values.nanoagent.httpproxy }}
+            - name: https_proxy
+              value: {{ .Values.nanoagent.httpsproxy }}
+            - name: HTTP_PROXY
+              value: {{ .Values.nanoagent.httpproxy }}
+            - name: HTTPS_PROXY
+              value: {{ .Values.nanoagent.httpsproxy }}
+            - name:  SPYDERBAT_TAGS
+              value: {{ .Values.spyderbat_tags }}
+          resources:
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}              
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: iproc
+              mountPath: /iproc
+              readOnly: true
+            - name: spyderbatpersistence
+              mountPath: /opt
+            - name: hostetc
+              mountPath: /hostetc
+              readOnly: true
+            - name: hostrun
+              mountPath: /hostrun
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: spyderbatpersistence
+          hostPath:
+            path: /opt
+        - name: iproc
+          hostPath:
+            path: /proc
+        - name: hostetc
+          hostPath:
+            path: /etc
+        - name: hostrun
+          hostPath:
+            path: /var/run

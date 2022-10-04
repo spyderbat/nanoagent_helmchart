@@ -1,0 +1,6 @@
+{{- if .Values.namespaceSpyderbat.enabled }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: spyderbat
+{{- end }}

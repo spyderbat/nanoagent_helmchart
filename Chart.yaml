@@ -1,0 +1,6 @@
+apiVersion: v2
+name: nanoagent
+description: Spyderbat NanoAgent daemon sent helmchart.
+type: application
+version: 1.0.9
+appVersion: "1.0.9"
