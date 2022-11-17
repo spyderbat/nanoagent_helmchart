@@ -63,8 +63,12 @@ spec:
             - name: iproc
               mountPath: /iproc
               readOnly: true
-            - name: spyderbatpersistence
-              mountPath: /opt
+            - name: hostopt
+              mountPath: /hostopt
+            - name: hostvar
+              mountPath: /hostvar
+            - name: hosthome
+              mountPath: /hosthome
             - name: hostetc
               mountPath: /hostetc
               readOnly: true
@@ -72,9 +76,15 @@ spec:
               mountPath: /hostrun
       terminationGracePeriodSeconds: 30
       volumes:
-        - name: spyderbatpersistence
+        - name: hostopt
           hostPath:
             path: /opt
+        - name: hostvar
+          hostPath:
+            path: /var
+        - name: hosthome
+          hostPath:
+            path: /home
         - name: iproc
           hostPath:
             path: /proc
