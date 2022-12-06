@@ -51,6 +51,9 @@ daemonset:
 
   podAnnotations: {}
 
+microK8sSnap: 
+  enabled: false
+  
 # Additional pod labels
 podLabels: {}
 

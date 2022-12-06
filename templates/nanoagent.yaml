@@ -74,6 +74,10 @@ spec:
               readOnly: true
             - name: hostrun
               mountPath: /hostrun
+{{- if .Values.microK8sSnap.enabled }}
+            - name: hostsnap
+              mountPath: /hostsnap
+{{- end }}
       terminationGracePeriodSeconds: 30
       volumes:
         - name: hostopt
@@ -94,3 +98,8 @@ spec:
         - name: hostrun
           hostPath:
             path: /var/run
+{{- if .Values.microK8sSnap.enabled }}
+        - name: hostsnap
+          hostPath:
+            path: /snap
+{{- end }}
