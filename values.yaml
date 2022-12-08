@@ -53,7 +53,10 @@ daemonset:
 
 microK8sSnap: 
   enabled: false
-  
+
+# Cluster Name
+CLUSTER_NAME: "none"
+
 # Additional pod labels
 podLabels: {}
 
