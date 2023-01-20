@@ -38,7 +38,7 @@ spec:
 {{- end }}
 {{- if .Values.nanoagent.tolerations }}
       tolerations:
-{{ toYaml .Values.nanoagent.tolerations | indent 6 }}
+{{ toYaml .Values.nanoagent.tolerations | indent 8 }}
 {{- end }}
 {{- if .Values.nanoagent.affinity }}
       affinity:
