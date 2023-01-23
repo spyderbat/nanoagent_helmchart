@@ -10,11 +10,6 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: {{ .Values.serviceAccount.name }}
-{{- if .Values.namespaceSpyderbat.enabled }}
-    namespace: spyderbat
-{{- end }}
-{{- if not .Values.namespaceSpyderbat.enabled }}
-    namespace: default
-{{- end }}
+    namespace: {{ .Release.Namespace }}
 
 {{- end }}
