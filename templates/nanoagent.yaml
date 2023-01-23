@@ -25,9 +25,25 @@ spec:
 {{- with .Values.podLabels }}
 {{ toYaml . | indent 9 }}
 {{- end }}
+{{- if .Values.nanoagent.pod.annotations }}
+      annotations:
+{{ toYaml .Values.nanoagent.pod.annotations | indent 8 }}
+{{- end }}
     spec:
       hostPID: true
       hostNetwork: true
+{{- if .Values.nanoagent.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nanoagent.nodeSelector | indent 8 }}
+{{- end }}
+{{- if .Values.nanoagent.tolerations }}
+      tolerations:
+{{ toYaml .Values.nanoagent.tolerations | indent 8 }}
+{{- end }}
+{{- if .Values.nanoagent.affinity }}
+      affinity:
+{{ toYaml .Values.nanoagent.affinity | indent 8 }}
+{{- end }}
 {{- if .Values.priorityClassDefault.enabled }}
       priorityClassName: spyderbat-high-priority
 {{- end }}

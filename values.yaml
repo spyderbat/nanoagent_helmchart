@@ -42,15 +42,6 @@ serviceAccount:
   role: cluster-admin
   
     
-# Daemonset update policy
-daemonset:
-  updateStrategy:
-    type: RollingUpdate
-
-  env: {}
-
-  podAnnotations: {}
-
 microK8sSnap: 
   enabled: false
 
@@ -60,4 +51,16 @@ CLUSTER_NAME: "none"
 # Additional pod labels
 podLabels: {}
 
+nanoagent:
+  pod:
+    ## The annotations pods
+    annotations: {}
 
+  ## The node selector for pod assignments
+  # nodeSelector: {}
+
+  ## The tolerations of the pods
+  tolerations: []
+
+  ## The affinity of the pods
+  affinity: {}
