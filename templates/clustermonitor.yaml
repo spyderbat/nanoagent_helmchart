@@ -2,12 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: clustermonitor-deployment
-{{- if .Values.namespaceSpyderbat.enabled }}
-  namespace: spyderbat
-{{- end }}
-{{- if not .Values.namespaceSpyderbat.enabled }}
-  namespace: default
-{{- end }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: clustermonitor
 spec:
@@ -18,12 +13,7 @@ spec:
   template:
     metadata:      
       name: clustermonitor
-{{- if .Values.namespaceSpyderbat.enabled }}
-      namespace: spyderbat
-{{- end }}
-{{- if not .Values.namespaceSpyderbat.enabled }}
-      namespace: default
-{{- end }}
+      namespace: {{ .Release.Namespace }}
       labels:
         app: clustermonitor
     spec:

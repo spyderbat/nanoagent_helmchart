@@ -2,12 +2,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: spyderbat-nanoagent
-{{- if .Values.namespaceSpyderbat.enabled }}
-  namespace: spyderbat
-{{- end }}
-{{- if not .Values.namespaceSpyderbat.enabled }}
-  namespace: default
-{{- end }}
+  namespace: {{ .Release.Namespace }}
   
   labels:
     k8s-app: spyderbat-nanoagent
