@@ -44,6 +44,9 @@ microK8sSnap:
 # Cluster Name
 CLUSTER_NAME: "none"
 
+# Emit environment variables from collection: no, everything, or allbutredacted
+OMITENVIRONMENT: "no"
+
 # Additional pod labels
 podLabels: {}
 

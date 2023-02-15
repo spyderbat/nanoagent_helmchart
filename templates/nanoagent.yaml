@@ -61,6 +61,8 @@ spec:
               value: {{ .Values.nanoagent.httpsproxy }}
             - name:  SPYDERBAT_TAGS
               value: {{ .Values.spyderbat_tags }}
+            - name: OMITENVIRONMENT
+              value: {{ .Values.OMITENVIRONMENT }}
           resources:
             requests:
               cpu: {{ .Values.resources.requests.cpu }}
