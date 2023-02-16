@@ -45,7 +45,7 @@ spec:
             - name: CLUSTER_NAME
               value: {{ .Values.CLUSTER_NAME }}
             - name: OMITENVIRONMENT
-              value: {{ .Values.OMITENVIRONMENT }}
+              value: "{{ .Values.OMITENVIRONMENT }}"
           resources:
             requests:
               cpu: {{ .Values.resources.requests.cpu }}
