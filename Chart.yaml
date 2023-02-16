@@ -2,5 +2,5 @@ apiVersion: v2
 name: nanoagent
 description: Spyderbat Nano Agent
 type: application
-version: 1.0.14
-appVersion: "1.0.14"
+version: 1.0.15
+appVersion: "1.0.15"
