@@ -44,10 +44,6 @@ spec:
               value: "yes"
             - name: CLUSTER_NAME
               value: {{ .Values.CLUSTER_NAME }}
-{{ - if .Values.OMITENVIRONMENT }}
-              - name: OMITENVIRONMENT
-              value: "{{ .Values.OMITENVIRONMENT }}"
-{{- end }}
           resources:
             requests:
               cpu: {{ .Values.resources.requests.cpu }}
