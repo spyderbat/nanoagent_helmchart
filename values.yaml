@@ -45,6 +45,9 @@ microK8sSnap:
 CLUSTER_NAME: "none"
 
 # Emit environment variables from collection: no, everything, or allbutredacted
+# "no" tells Spyderbat to capture and analyze all environment variables from observed processes
+# "everything" omits all environment variables
+# "allbutredacted" uses a set of rules and omits everything but the envionrment variables that look like they contain secrets.  The secrets are encrypted.
 OMITENVIRONMENT: "no"
 
 # Additional pod labels
