@@ -14,3 +14,4 @@ Default settings that can be altered in Values.yaml
 |Memory resource limit| 	limits: memory	| N/A	                               | 2048Mi         |
 |Priority class	| priorityClassDefault	        | enabled: false | 	1000                      |
 |Namespace	| namespaceSpyderbat	          | enabled: true	 | spyderbat                  |
+|Omit Envionment | OMITENVIRONMENT | | "no" |
