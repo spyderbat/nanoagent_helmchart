@@ -50,6 +50,13 @@ CLUSTER_NAME: "none"
 # "allbutredacted" uses a set of rules and omits everything but the envionrment variables that look like they contain secrets.  The secrets are encrypted.
 OMITENVIRONMENT: "no"
 
+
+# Spyderbat needs slightly more permissions to operate.  Specifically it needs the ability to use the bpf(.) syscall.  There are 2 ways to allow that.
+# 1) a container can be privileged or 2) it can use CAP_SYS_ADMIN.   One of these must be true.
+spyderbat_permissions:
+  USE_PRIVILEGED: false
+  USE_CAP_SYS_ADMIN: true
+
 # Additional pod labels
 podLabels: {}
 
