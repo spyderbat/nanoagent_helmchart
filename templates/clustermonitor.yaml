@@ -42,6 +42,8 @@ spec:
               value: {{ .Values.spyderbat_tags }}
             - name: K8SMONITOR
               value: "yes"
+            - name: SPYDERBAT_K8S_DEPLOYMENT
+              value: "yes"
             - name: CLUSTER_NAME
               value: {{ .Values.CLUSTER_NAME }}
 {{- if .Values.OMITENVIRONMENT }}
