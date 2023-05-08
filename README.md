@@ -26,3 +26,9 @@ To configure access via a proxy you can add additional parameters to the Helm co
 --set nanoagent.httpproxy=http://123.123.123.123:2/ --set nanoagent.httpsproxy=http://123.123.123.123:2/
 ```
 
+
+To set the resource limits additional parameters like there can be added to the Helm command line.  We recommend 3-5% of the resources on a node as a limit
+
+```
+--set resources.limits.cpu=2000m --set resources.limits.memory=8192M
+```
