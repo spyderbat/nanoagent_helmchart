@@ -16,3 +16,13 @@ Default settings that can be altered in Values.yaml
 |Priority class	| priorityClassDefault	        | enabled: false | 	1000                      |                                                                                                                                                                                                                  |
 |Namespace	| namespaceSpyderbat	          | enabled: true	 | spyderbat                  |                                                                                                                                                                                                                  |
 |Omit Envionment | OMITENVIRONMENT | | "no" | "no" emit all environment variables. "everything" omits all environment variables and "allbutredacted" uses our rules to encrypt variables that look like they contain secrets and emit only those for analysis. |
+
+
+
+
+To configure access via a proxy you can add additional parameters to the Helm command line:
+
+```
+--set nanoagent.httpproxy=http://123.123.123.123:2/ --set nanoagent.httpsproxy=http://123.123.123.123:2/
+```
+
