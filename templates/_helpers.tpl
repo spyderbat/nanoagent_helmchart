@@ -30,11 +30,22 @@ Create chart name and version as used by the chart label.
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
+{{- define "spyderbat.version" -}}
+spyderbatchart: {{ include "nanoagent.chart" . }}
+{{- end }}
+
+{{- define "spyderbatenv.version" -}}
+- name: SPYDERBATCHART
+  value: {{ include "nanoagent.chart" . }}
+{{- end }}
+
+
 {{/*
 Common labels
 */}}
 {{- define "nanoagent.labels" -}}
 helm.sh/chart: {{ include "nanoagent.chart" . }}
+spyderbatchart: {{ include "nanoagent.chart" . }}
 {{ include "nanoagent.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}

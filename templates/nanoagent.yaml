@@ -7,13 +7,14 @@ metadata:
   labels:
     k8s-app: spyderbat-nanoagent
     version: v1
+    {{- include "spyderbat.version" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
       name: spyderbat-nanoagent
   template:
     metadata:
-      labels:
+      labels:             
         name: spyderbat-nanoagent
         k8s-app: spyderbat-nanoagent
         version: v1
@@ -65,6 +66,7 @@ spec:
               value: "yes"
             - name: CLUSTER_NAME
               value: {{ .Values.CLUSTER_NAME }}
+{{- include "spyderbatenv.version" . | nindent 12 }}
 {{- if .Values.OMITENVIRONMENT }}
             - name: OMITENVIRONMENT
               value: "{{ .Values.OMITENVIRONMENT }}"

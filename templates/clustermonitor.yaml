@@ -5,6 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     app: clustermonitor
+    {{- include "spyderbat.version" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
@@ -46,6 +47,7 @@ spec:
               value: "yes"
             - name: CLUSTER_NAME
               value: {{ .Values.CLUSTER_NAME }}
+{{- include "spyderbatenv.version" . | nindent 12 }}              
 {{- if .Values.OMITENVIRONMENT }}
             - name: OMITENVIRONMENT
               value: "{{ .Values.OMITENVIRONMENT }}"
