@@ -14,14 +14,15 @@ kubernetesSupport:
   apiUrl: "https://$(KUBERNETES_SERVICE_HOST)"
 
 
-# Reasonable resource defaults.  May need to be larger on particularly large systems
+# Reasonable resource defaults.  May need to be larger on particularly large systems.  We recommend about 3-5% of the system resources for a node.
+# Before deploying to production please make sure these limits are sane to protect your work load.
 resources:
   requests:
     cpu: 100m
     memory: 512Mi
   limits:
-    cpu: 1000m
-    memory: 2048Mi
+    cpu: 6000m
+    memory: 10240Mi
 
 # Priority class for Spyderbat Nano Agent.   An agent is desired on each node of the cluster
 # Disabled by default to prevent doing harm.
