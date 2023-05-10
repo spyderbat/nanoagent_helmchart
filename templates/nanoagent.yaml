@@ -14,7 +14,7 @@ spec:
       name: spyderbat-nanoagent
   template:
     metadata:
-      labels:             
+      labels:
         name: spyderbat-nanoagent
         k8s-app: spyderbat-nanoagent
         version: v1
