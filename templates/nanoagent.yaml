@@ -66,6 +66,8 @@ spec:
               value: "yes"
             - name: CLUSTER_NAME
               value: {{ .Values.CLUSTER_NAME }}
+            - name: SPYDERBAT_EPHEMERAL_NODE
+              value: "true"
 {{- include "spyderbatenv.version" . | nindent 12 }}
 {{- if .Values.OMITENVIRONMENT }}
             - name: OMITENVIRONMENT
