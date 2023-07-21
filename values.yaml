@@ -35,12 +35,14 @@ priorityClassDefault:
   value: 1000
 
 # Create a service account
+# if readonly is selected, a read-only cluster role is created and can be used: spyderbat-cluster-readonly
+# This will prevent kubernetes actions from being able to execute.
 serviceAccount:
   create: true
   name: spyderbat-serviceaccount
   annotations: { }
   role: cluster-admin
-  
+  readonly: false
     
 microK8sSnap: 
   enabled: false
