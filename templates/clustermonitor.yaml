@@ -26,13 +26,19 @@ spec:
         - name: clustermonitor
           image: {{ .Values.image.registry}}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullpolicy }}
+{{- if .Values.aws.secretsmanager.enabled }}
           command: ["/bin/sh","-c"]
           args: ["AGENT_REGISTRATION_CODE=`cat /mnt/spyderbat-credentials/spyderbat-registration-key` ./boot_strap.sh"]
           volumeMounts:
             - name: secrets-store-inline
               mountPath: "/mnt/spyderbat-credentials"
               readOnly: true
+{{- end }}
           env:
+{{- if eq .Values.aws.secretsmanager.enabled false }}
+            - name: AGENT_REGISTRATION_CODE
+              value: {{ .Values.nanoagent.agentRegistrationCode  }}
+{{- end }}
             - name: ORC_URL
               value: {{  .Values.nanoagent.orcurl }}
             - name: http_proxy
@@ -63,6 +69,7 @@ spec:
             limits:
               cpu: {{ .Values.resources.limits.cpu }}
               memory: {{ .Values.resources.limits.memory }}
+{{- if .Values.aws.secretsmanager.enabled }}
       volumes:
       - name: secrets-store-inline
         csi:
@@ -70,3 +77,4 @@ spec:
           readOnly: true
           volumeAttributes:
             secretProviderClass: "spyderbat-credentials"
+{{- end }}
