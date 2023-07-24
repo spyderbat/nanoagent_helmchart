@@ -32,3 +32,5 @@ To set the resource limits additional parameters like there can be added to the 
 ```
 --set resources.limits.cpu=2000m --set resources.limits.memory=8192M
 ```
+
+A readonly service account can be used instead of the read/write one.   This can be enabled by setting serviceAccount.readonly to true and then using spyderbat-cluster-readonly in serviceAccount.role.   Doing this will prevent kubernetes "actions" from being functional, killing a pod with guardian will not function properly.
