@@ -27,7 +27,7 @@ spec:
           image: {{ .Values.image.registry}}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullpolicy }}
 {{- if .Values.aws.secretsmanager.enabled }}
-          command: ["/bin/sh","-c"]
+          command: ["/bin/bash","-c"]
           args: ["AGENT_REGISTRATION_CODE=`cat /mnt/spyderbat-credentials/spyderbat-registration-key` ./boot_strap.sh"]
           volumeMounts:
             - name: secrets-store-inline
