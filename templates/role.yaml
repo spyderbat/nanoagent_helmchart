@@ -2,7 +2,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: spyderbat-cluster-readonly
+  name: {{ .Values.serviceAccount.readonlyrolename }}
 rules:
 - apiGroups: ["*"]
   resources: ["*"]
