@@ -1,5 +1,5 @@
 # AWS Secret Manager
-## Tehse are some sample steps of how to leverage AWS Secrets Manager as a secret store for the Agent Registration Code.  There is an assumption that you are familiar with AWS, IAM, and EKS and how the 3 interact.
+## These are some sample steps of how to leverage AWS Secrets Manager as a secret store for the Agent Registration Code.  There is an assumption that you are familiar with AWS, IAM, and EKS and how the 3 interact.
 
 - Store the registration keys in secrets manager and get the ARN for it
     ```
