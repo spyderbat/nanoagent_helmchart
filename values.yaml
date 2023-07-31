@@ -38,8 +38,10 @@ priorityClassDefault:
 serviceAccount:
   create: true
   name: spyderbat-serviceaccount
-  annotations: {}
-  role: cluster-admin
+  readonlyrolename: spyderbat-cluster-readonly
+  writerolename: spyderbat-cluster-write
+  annotations: { }
+  role: spyderbat-cluster-write
   readonly: false
 
 microK8sSnap:
