@@ -1,4 +1,3 @@
-
 # Image location for Spyderbat Nano Agent
 image:
   registry: public.ecr.aws
@@ -15,7 +14,6 @@ kubernetesSupport:
   enabled: true
   apiAuth: /var/run/secrets/kubernetes.io/serviceaccount/token
   apiUrl: "https://$(KUBERNETES_SERVICE_HOST)"
-
 
 # Reasonable resource defaults.  May need to be larger on particularly large systems.  We recommend about 3-5% of the system resources for a node.
 # Before deploying to production please make sure these limits are sane to protect your work load.
@@ -45,8 +43,8 @@ serviceAccount:
   annotations: { }
   role: spyderbat-cluster-write
   readonly: false
-    
-microK8sSnap: 
+
+microK8sSnap:
   enabled: false
 
 # Cluster Name
@@ -60,6 +58,12 @@ OMITENVIRONMENT: "no"
 
 # Additional pod labels
 podLabels: {}
+
+aws:
+  secretsmanager:
+    enabled: false
+    rolearn: "arn:aws:iam::429857113775:role/eksctl-amazing-rainbow-1689885478-addon-iams-Role1-O1Z4QM13CADJ"
+    secretarn: "arn:aws:secretsmanager:us-east-2:429857113775:secret:beau/dev/eks-csi-roobat-M1mBZk"
 
 nanoagent:
   pod:
