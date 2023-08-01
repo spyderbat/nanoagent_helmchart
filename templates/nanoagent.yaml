@@ -26,6 +26,7 @@ spec:
 {{ toYaml .Values.nanoagent.pod.annotations | indent 8 }}
 {{- end }}
     spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
       hostPID: true
       hostNetwork: true
 {{- if .Values.nanoagent.nodeSelector }}
@@ -47,9 +48,11 @@ spec:
         - name: spyderbat-nanoagent
           image: {{ .Values.image.registry}}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullpolicy }}
+{{- if .Values.aws.secretsmanager.enabled }}
+          command: ["/bin/bash","-c"]
+          args: ["AGENT_REGISTRATION_CODE=`cat /mnt/spyderbat-credentials/spyderbat-registration-key` ./boot_strap.sh"]
+{{- end }}
           env:
-            - name: AGENT_REGISTRATION_CODE
-              value: {{ .Values.nanoagent.agentRegistrationCode  }}
             - name: ORC_URL
               value: {{  .Values.nanoagent.orcurl }}
             - name: http_proxy
@@ -97,6 +100,9 @@ spec:
               readOnly: true
             - name: hostrun
               mountPath: /hostrun
+            - name: secrets-store-inline
+              mountPath: "/mnt/spyderbat-credentials"
+              readOnly: true
 {{- if .Values.microK8sSnap.enabled }}
             - name: hostsnap
               mountPath: /hostsnap
@@ -121,6 +127,12 @@ spec:
         - name: hostrun
           hostPath:
             path: /var/run
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "spyderbat-credentials"
 {{- if .Values.microK8sSnap.enabled }}
         - name: hostsnap
           hostPath:

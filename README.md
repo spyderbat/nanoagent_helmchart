@@ -16,8 +16,9 @@ Default settings that can be altered in Values.yaml
 |Priority class	| priorityClassDefault	        | enabled: false | 	1000                      |                                                                                                                                                                                                                  |
 |Namespace	| namespaceSpyderbat	          | enabled: true	 | spyderbat                  |                                                                                                                                                                                                                  |
 |Omit Envionment | OMITENVIRONMENT | | "no" | "no" emit all environment variables. "everything" omits all environment variables and "allbutredacted" uses our rules to encrypt variables that look like they contain secrets and emit only those for analysis. |
-
-
+|AWS Secrets Manager | aws:secretsmanager:enabled | | false | Whether to use AWS SM integration to retrieve agent registration code. |
+|AWS Secrets Manager | aws:secretsmanager:rolearn| | ""| The arn of the role for the eks spyderbat service account to assume|
+|AWS Secrets Manager | aws:secretsmanager:secretarn| | "" | the arn of the secret that the pods will attempt to mount to read the registration code from.|
 
 
 To configure access via a proxy you can add additional parameters to the Helm command line:
