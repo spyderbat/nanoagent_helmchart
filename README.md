@@ -35,3 +35,14 @@ To set the resource limits additional parameters like there can be added to the 
 ```
 
 A readonly service account can be used instead of the read/write one.   This can be enabled by setting serviceAccount.readonly to true and then using spyderbat-cluster-readonly in serviceAccount.role.   Doing this will prevent kubernetes "actions" from being functional, killing a pod with guardian will not function properly.
+
+
+
+
+
+# To update this and get it hosted live.
+
+1. Update the version of Chart.yaml
+1. Commit and push the updates
+1. In the nanoagent_helm repo, git pull and run ```make update```
+1. Review the changes and then git push
