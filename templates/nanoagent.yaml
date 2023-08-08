@@ -53,6 +53,10 @@ spec:
           args: ["AGENT_REGISTRATION_CODE=`cat /mnt/spyderbat-credentials/spyderbat-registration-key` ./boot_strap.sh"]
 {{- end }}
           env:
+{{- if eq .Values.aws.secretsmanager.enabled false }}
+            - name: AGENT_REGISTRATION_CODE
+              value: {{ .Values.nanoagent.agentRegistrationCode  }}
+{{- end }}
             - name: ORC_URL
               value: {{  .Values.nanoagent.orcurl }}
             - name: http_proxy
