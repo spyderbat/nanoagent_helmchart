@@ -59,7 +59,7 @@ spec:
 {{- end }}
             - name: ORC_URL
               value: {{  .Values.nanoagent.orcurl }}
-            - name: http_proxy
+            - name: http_proxy        
               value: {{  .Values.nanoagent.httpproxy }}
             - name: https_proxy
               value: {{ .Values.nanoagent.httpsproxy }}
@@ -75,6 +75,11 @@ spec:
               value: {{ .Values.CLUSTER_NAME }}
             - name: SPYDERBAT_EPHEMERAL_NODE
               value: "true"
+            - name: SPYDERBAT_INSTALL_ID
+              valueFrom:
+                 configMapKeyRef:
+                    name: spyderbat-install-config
+                    key: installdetails
 {{- include "spyderbatenv.version" . | nindent 12 }}
 {{- if .Values.OMITENVIRONMENT }}
             - name: OMITENVIRONMENT

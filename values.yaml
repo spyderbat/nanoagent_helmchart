@@ -9,6 +9,7 @@ image:
   pullPolicy: Always
   pullSecrets: []
 
+
 # Enables Kubernetes meta data collection via a connection to the Kubernetes API server.
 kubernetesSupport:
   enabled: true

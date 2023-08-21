@@ -34,6 +34,7 @@ Create chart name and version as used by the chart label.
 spyderbatchart: {{ include "nanoagent.chart" . }}
 {{- end }}
 
+
 {{- define "spyderbatenv.version" -}}
 - name: SPYDERBATCHART
   value: {{ include "nanoagent.chart" . }}
@@ -71,3 +72,7 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+
+
+
