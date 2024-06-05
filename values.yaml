@@ -9,7 +9,6 @@ image:
   pullPolicy: Always
   pullSecrets: []
 
-
 # Enables Kubernetes meta data collection via a connection to the Kubernetes API server.
 kubernetesSupport:
   enabled: true
@@ -41,7 +40,7 @@ serviceAccount:
   name: spyderbat-serviceaccount
   readonlyrolename: spyderbat-cluster-readonly
   writerolename: spyderbat-cluster-write
-  annotations: { }
+  annotations: {}
   role: spyderbat-cluster-write
   readonly: false
 
@@ -73,9 +72,6 @@ nanoagent:
 
   ## The node selector for pod assignments
   # nodeSelector: {}
-
-  ## The tolerations of the pods
-  tolerations: []
 
   ## The affinity of the pods
   affinity: {}
