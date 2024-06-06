@@ -75,3 +75,10 @@ nanoagent:
 
   ## The affinity of the pods
   affinity: {}
+collector:
+  typeA:
+    memory: 768Mi
+    cpu: 150m
+  typeB:
+    memory: 1024Mi
+    cpu: 200m
