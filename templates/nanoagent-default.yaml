@@ -1,9 +1,11 @@
-{{ if .Values.collector }}
-{{ else }}
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
+{{ if .Values.collector }}
+  name: spyderbat-nanoagent-default
+{{ else }}
   name: spyderbat-nanoagent
+{{ end }}
   namespace: {{ .Release.Namespace }}
   
   labels:
@@ -34,6 +36,22 @@ spec:
 {{- if .Values.nanoagent.nodeSelector }}
       nodeSelector:
 {{ toYaml .Values.nanoagent.nodeSelector | indent 8 }}
+{{- else }}
+{{ if $.Values.collector }}
+      tolerations:
+      - operator: Exists
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node.kubernetes.io/instance-type
+                    operator: NotIn
+                    values:
+{{- range $k, $v := $.Values.collector }}
+                      - {{ $k }}
+{{- end }}
+{{- end }}
 {{- end }}
       tolerations:
       - operator: Exists
@@ -151,4 +169,3 @@ spec:
           hostPath:
             path: /snap
 {{- end }}
-{{ end }}

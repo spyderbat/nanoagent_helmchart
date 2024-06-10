@@ -36,7 +36,7 @@ spec:
 {{- if $.Values.nanoagent.nodeSelector }}
       nodeSelector:
 {{ toYaml $.Values.nanoagent.nodeSelector | indent 8 }}
-{{- end }}
+{{- else }}
       tolerations:
       - operator: Exists
       affinity:
@@ -48,6 +48,7 @@ spec:
                     operator: In
                     values:
                       - {{ $k }}
+{{- end }}
 {{- if $.Values.priorityClassDefault.enabled }}
       priorityClassName: spyderbat-high-priority
 {{- end }}
@@ -160,163 +161,4 @@ spec:
             path: /snap
 {{- end }}
 {{ end }}
----
-apiVersion: apps/v1
-kind: DaemonSet
-metadata:
-  name: spyderbat-nanoagent-default
-  namespace: {{ $.Release.Namespace }}
-  
-  labels:
-    k8s-app: spyderbat-nanoagent
-    version: v1
-    {{- include "spyderbat.version" . | nindent 4 }}
-spec:
-  selector:
-    matchLabels:
-      name: spyderbat-nanoagent
-  template:
-    metadata:
-      labels:
-        name: spyderbat-nanoagent
-        k8s-app: spyderbat-nanoagent
-        version: v1
-{{- with $.Values.podLabels }}
-{{ toYaml . | indent 9 }}
-{{- end }}
-{{- if $.Values.nanoagent.pod.annotations }}
-      annotations:
-{{ toYaml $.Values.nanoagent.pod.annotations | indent 8 }}
-{{- end }}
-    spec:
-      serviceAccountName: {{ $.Values.serviceAccount.name }}
-      hostPID: true
-      hostNetwork: true
-{{- if $.Values.nanoagent.nodeSelector }}
-      nodeSelector:
-{{ toYaml $.Values.nanoagent.nodeSelector | indent 8 }}
-{{- end }}
-      tolerations:
-      - operator: Exists
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: node.kubernetes.io/instance-type
-                    operator: NotIn
-                    values:
-{{- range $k, $v := $.Values.collector }}
-                      - {{ $k }}
-{{- end }}
-{{- if $.Values.priorityClassDefault.enabled }}
-      priorityClassName: spyderbat-high-priority
-{{- end }}
-      containers:
-        - name: spyderbat-nanoagent
-          image: {{ $.Values.image.registry}}/{{ $.Values.image.repository }}:{{ $.Values.image.tag }}
-          imagePullPolicy: {{ $.Values.image.pullpolicy }}
-{{- if $.Values.aws.secretsmanager.enabled }}
-          command: ["/bin/bash","-c"]
-          args: ["AGENT_REGISTRATION_CODE=`cat /mnt/spyderbat-credentials/spyderbat-registration-key` ./boot_strap.sh"]
-{{- end }}
-          env:
-{{- if eq $.Values.aws.secretsmanager.enabled false }}
-            - name: AGENT_REGISTRATION_CODE
-              value: {{ $.Values.nanoagent.agentRegistrationCode  }}
-{{- end }}
-            - name: ORC_URL
-              value: {{  $.Values.nanoagent.orcurl }}
-            - name: http_proxy        
-              value: {{  $.Values.nanoagent.httpproxy }}
-            - name: https_proxy
-              value: {{ $.Values.nanoagent.httpsproxy }}
-            - name: HTTP_PROXY
-              value: {{ $.Values.nanoagent.httpproxy }}
-            - name: HTTPS_PROXY
-              value: {{ $.Values.nanoagent.httpsproxy }}
-            - name:  SPYDERBAT_TAGS
-              value: {{ $.Values.spyderbat_tags }}
-            - name: SPYDERBAT_K8S_DEPLOYMENT
-              value: "yes"
-            - name: CLUSTER_NAME
-              value: {{ $.Values.CLUSTER_NAME }}
-            - name: SPYDERBAT_EPHEMERAL_NODE
-              value: "true"
-            - name: SPYDERBAT_INSTALL_ID
-              valueFrom:
-                 configMapKeyRef:
-                    name: spyderbat-install-config
-                    key: installdetails
-{{- include "spyderbatenv.version" . | nindent 12 }}
-{{- if $.Values.OMITENVIRONMENT }}
-            - name: OMITENVIRONMENT
-              value: "{{ $.Values.OMITENVIRONMENT }}"
-{{- end }}
-          resources:
-            requests:
-              cpu: {{ .Values.resources.requests.cpu }}
-              memory: {{ .Values.resources.requests.memory }}
-            limits:
-              cpu: {{ .Values.resources.limits.cpu }}
-              memory: {{ .Values.resources.limits.memory }}    
-          securityContext:
-            privileged: true
-          volumeMounts:
-            - name: iproc
-              mountPath: /iproc
-              readOnly: true
-            - name: hostopt
-              mountPath: /hostopt
-            - name: hostvar
-              mountPath: /hostvar
-            - name: hosthome
-              mountPath: /hosthome
-            - name: hostetc
-              mountPath: /hostetc
-              readOnly: true
-            - name: hostrun
-              mountPath: /hostrun
-{{- if $.Values.aws.secretsmanager.enabled }}              
-            - name: secrets-store-inline
-              mountPath: "/mnt/spyderbat-credentials"
-              readOnly: true
-{{- end }}             
-{{- if $.Values.microK8sSnap.enabled }}
-            - name: hostsnap
-              mountPath: /hostsnap
-{{- end }}
-      terminationGracePeriodSeconds: 30
-      volumes:
-        - name: hostopt
-          hostPath:
-            path: /opt
-        - name: hostvar
-          hostPath:
-            path: /var
-        - name: hosthome
-          hostPath:
-            path: /home
-        - name: iproc
-          hostPath:
-            path: /proc
-        - name: hostetc
-          hostPath:
-            path: /etc
-        - name: hostrun
-          hostPath:
-            path: /var/run
-{{- if $.Values.aws.secretsmanager.enabled }}
-        - name: secrets-store-inline
-          csi:
-            driver: secrets-store.csi.k8s.io
-            readOnly: true
-            volumeAttributes:
-              secretProviderClass: "spyderbat-credentials"
-{{- end }}
-{{- if $.Values.microK8sSnap.enabled }}
-        - name: hostsnap
-          hostPath:
-            path: /snap
-{{- end }}
 {{ end }}
