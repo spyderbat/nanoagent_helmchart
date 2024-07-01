@@ -5,7 +5,7 @@ metadata:
   name: {{ .Values.serviceAccount.readonlyrolename }}
 rules:
 - apiGroups: ["*"]
-  resources: ["*"]
+  resources: ["clusterroles", "roles", "clusterrolebindings", "rolebindings", "cronjobs", "daemonsets", "deployments", "namespaces", "jobs", "nodes", "replicasets", "endpoints", "services", "serviceaccounts","statefulsets", "events"]
   verbs: ["get", "list", "watch"]
 {{- end }}
 

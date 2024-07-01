@@ -5,10 +5,9 @@ metadata:
 rules:
 
 - apiGroups: ["*"]
-  resources: ["*"]
+  resources: ["clusterroles", "roles", "clusterrolebindings", "rolebindings", "cronjobs", "daemonsets", "deployments", "namespaces", "jobs", "nodes", "replicasets", "endpoints", "services", "serviceaccounts","statefulsets", "events"]
   verbs: ["get", "list", "watch"]
 - apiGroups: ["*"]
   resources: ["pods"]
   verbs: ["delete", "watch", "get", "list"]
-
 
