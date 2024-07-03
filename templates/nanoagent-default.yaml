@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-{{ if .Values.collector }}
+{{ if .Values.spyderbatrecommender }}
   name: spyderbat-nanoagent-default
 {{ else }}
   name: spyderbat-nanoagent
@@ -37,7 +37,7 @@ spec:
       nodeSelector:
 {{ toYaml .Values.nanoagent.nodeSelector | indent 8 }}
 {{- else }}
-{{ if $.Values.collector }}
+{{ if $.Values.spyderbatrecommender }}
       tolerations:
       - operator: Exists
       affinity:
@@ -48,7 +48,7 @@ spec:
                   - key: node.kubernetes.io/instance-type
                     operator: NotIn
                     values:
-{{- range $k, $v := $.Values.collector }}
+{{- range $k, $v := $.Values.spyderbatrecommender }}
                       - {{ $k }}
 {{- end }}
 {{- end }}

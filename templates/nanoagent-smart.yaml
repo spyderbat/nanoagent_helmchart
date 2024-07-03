@@ -1,5 +1,5 @@
-{{ if $.Values.collector }}
-{{ range $k, $v := $.Values.collector }}
+{{ if $.Values.spyderbatrecommender }}
+{{ range $k, $v := $.Values.spyderbatrecommender }}
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:

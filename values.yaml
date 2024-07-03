@@ -75,7 +75,7 @@ nanoagent:
 
   ## The affinity of the pods
   affinity: {}
-collector:
+spyderbatrecommender:
   #  typeA:
   #    memory: 768Mi
   #    cpu: 150m
