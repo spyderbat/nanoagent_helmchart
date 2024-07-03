@@ -5,7 +5,7 @@ kind: DaemonSet
 metadata:
   name: spyderbat-nanoagent-{{ $k }}
   namespace: {{ $.Release.Namespace }}
-  
+
   labels:
     k8s-app: spyderbat-nanoagent
     version: v1
@@ -67,7 +67,7 @@ spec:
 {{- end }}
             - name: ORC_URL
               value: {{  $.Values.nanoagent.orcurl }}
-            - name: http_proxy        
+            - name: http_proxy
               value: {{  $.Values.nanoagent.httpproxy }}
             - name: https_proxy
               value: {{ $.Values.nanoagent.httpsproxy }}
@@ -100,7 +100,7 @@ spec:
               memory: {{ $v.memory }}
             limits:
               cpu: {{ $v.cpu }}
-              memory: {{ $v.memory }}              
+              memory: {{ $v.memory }}
           securityContext:
             privileged: true
           volumeMounts:
@@ -118,11 +118,11 @@ spec:
               readOnly: true
             - name: hostrun
               mountPath: /hostrun
-{{- if $.Values.aws.secretsmanager.enabled }}              
+{{- if $.Values.aws.secretsmanager.enabled }}
             - name: secrets-store-inline
               mountPath: "/mnt/spyderbat-credentials"
               readOnly: true
-{{- end }}             
+{{- end }}
 {{- if $.Values.microK8sSnap.enabled }}
             - name: hostsnap
               mountPath: /hostsnap

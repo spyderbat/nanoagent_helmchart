@@ -109,7 +109,7 @@ spec:
               memory: {{ .Values.resources.requests.memory }}
             limits:
               cpu: {{ .Values.resources.limits.cpu }}
-              memory: {{ .Values.resources.limits.memory }}              
+              memory: {{ .Values.resources.limits.memory }}
           securityContext:
             privileged: true
           volumeMounts:
@@ -127,11 +127,11 @@ spec:
               readOnly: true
             - name: hostrun
               mountPath: /hostrun
-{{- if .Values.aws.secretsmanager.enabled }}              
+{{- if .Values.aws.secretsmanager.enabled }}
             - name: secrets-store-inline
               mountPath: "/mnt/spyderbat-credentials"
               readOnly: true
-{{- end }}             
+{{- end }}
 {{- if .Values.microK8sSnap.enabled }}
             - name: hostsnap
               mountPath: /hostsnap
