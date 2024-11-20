@@ -75,3 +75,17 @@ nanoagent:
 
   ## The affinity of the pods
   affinity: {}
+spyderbatrecommender:
+  #  typeA:
+  #    memory: 768Mi
+  #    cpu: 150m
+  #  typeB:
+  #    memory: 1024Mi
+  #    cpu: 200m
+  #
+  m6g.large:
+    cpu: 0.0772
+    memory: "296319385.6"
+  m6g.xlarge:
+    cpu: 0.1568
+    memory: "613283758.08"
