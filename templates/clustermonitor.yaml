@@ -1,3 +1,4 @@
+{{- if .Values.clusterMonitor.create -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -82,4 +83,5 @@ spec:
           readOnly: true
           volumeAttributes:
             secretProviderClass: "spyderbat-credentials"
+{{- end }}
 {{- end }}
