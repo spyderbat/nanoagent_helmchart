@@ -45,7 +45,7 @@ spec:
       containers:
         - name: spyderbat-nanoagent
           image: {{ .Values.image.registry}}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
-          imagePullPolicy: {{ .Values.image.pullpolicy }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
 {{- if .Values.aws.secretsmanager.enabled }}
           command: ["/bin/bash","-c"]
           args: ["AGENT_REGISTRATION_CODE=`cat /mnt/spyderbat-credentials/spyderbat-registration-key` ./boot_strap.sh"]
