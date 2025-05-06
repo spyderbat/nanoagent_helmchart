@@ -32,6 +32,10 @@ priorityClassDefault:
   name: default
   value: 1000
 
+# Enabling echoscan gives the clustermonitor more permissions so that it can scan running pods.
+echoscan:
+  enbaled: false
+  
 # Create a service account
 # if readonly is selected, a read-only cluster role is created and can be used: spyderbat-cluster-readonly
 # This will prevent kubernetes actions from being able to execute.
