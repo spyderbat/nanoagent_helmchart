@@ -9,12 +9,12 @@ rules:
   resources: ["clusterroles", "roles", "clusterrolebindings", "rolebindings", "cronjobs", "daemonsets", "deployments", "namespaces", "jobs", "nodes", "replicasets", "endpoints", "services", "serviceaccounts","statefulsets", "events"]
   verbs: ["get", "list", "watch"]
 - apiGroups: ["*"]
-{{-  if .Values.echoscan.enabled }}
-  resources: ["*"]
-  verbs: ["*"]
-{{- else }}
   resources: ["pods"]
   verbs: ["delete", "watch", "get", "list"]
+{{-  if .Values.echoscan.enabled }}
+- apiGroups: ["core"]
+  resources: ["pods/ephemeralcontainers"]
+  verbs: ["update"]
 {{- end }}
 
 {{- end }}
