@@ -11,10 +11,10 @@ rules:
 - apiGroups: ["*"]
   resources: ["pods"]
   verbs: ["delete", "watch", "get", "list"]
-{{-  if .Values.echoscan.enabled }}
+{{- end }}
+{{- if .Values.echoscan.enabled }}
 - apiGroups: ["core"]
   resources: ["pods/ephemeralcontainers"]
   verbs: ["update"]
 {{- end }}
 
-{{- end }}
