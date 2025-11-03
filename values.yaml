@@ -82,6 +82,8 @@ nanoagent:
 # deployment must be one per cluster.
 clusterMonitor:
   create: true
+  
+  ## Affinity selection for cluster monitor
   affinity: {}
 
 # Whether or not the write ClusterRole should be created.
