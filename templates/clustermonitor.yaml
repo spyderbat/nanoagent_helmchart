@@ -83,5 +83,10 @@ spec:
           readOnly: true
           volumeAttributes:
             secretProviderClass: "spyderbat-credentials"
+{{- if .Values.clustermonitor.affinity }}	    
+      affinity:
+        {{- toYaml .Values.clustermonitor.affinity | nindent 8 }}
+{{- end }}
+
 {{- end }}
 {{- end }}

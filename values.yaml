@@ -82,6 +82,7 @@ nanoagent:
 # deployment must be one per cluster.
 clusterMonitor:
   create: true
+  affinity: {}
 
 # Whether or not the write ClusterRole should be created.
 # If set to false the role will not be created. Useful for multiple deployments
