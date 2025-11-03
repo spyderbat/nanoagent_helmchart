@@ -13,8 +13,14 @@ rules:
   verbs: ["delete", "watch", "get", "list"]
 {{- end }}
 {{- if .Values.echoscan.enabled }}
-- apiGroups: ["core"]
-  resources: ["pods/ephemeralcontainers"]
-  verbs: ["update"]
+#- apiGroups: ["*"]
+#  resources: ["pods/ephemeralcontainers"]
+#  verbs: ["update"]
+#- apiGroups: ["*"]
+#  resources: ["pods/log"]
+#  verbs: ["*"]
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]
 {{- end }}
 
