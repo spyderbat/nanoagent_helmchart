@@ -81,10 +81,10 @@ nanoagent:
 # multiple deployments of the chart on the same cluster, the clusterMonitor
 # deployment must be one per cluster.
 clusterMonitor:
-  create: true
-  
+  create: true 
   ## Affinity selection for cluster monitor
   affinity: {}
+
 
 # Whether or not the write ClusterRole should be created.
 # If set to false the role will not be created. Useful for multiple deployments

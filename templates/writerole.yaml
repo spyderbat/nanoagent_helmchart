@@ -4,7 +4,6 @@ kind: ClusterRole
 metadata:
   name: {{ .Values.serviceAccount.writerolename }}
 rules:
-
 - apiGroups: ["*"]
   resources: ["clusterroles", "roles", "clusterrolebindings", "rolebindings", "cronjobs", "daemonsets", "deployments", "namespaces", "jobs", "nodes", "replicasets", "endpoints", "services", "serviceaccounts","statefulsets", "events"]
   verbs: ["get", "list", "watch"]
@@ -12,3 +11,4 @@ rules:
   resources: ["pods"]
   verbs: ["delete", "watch", "get", "list"]
 {{- end }}
+
