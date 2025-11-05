@@ -79,6 +79,10 @@ spec:
       affinity:
         {{- toYaml .Values.clusterMonitor.affinity | nindent 8 }}
 {{- end }}
+{{- if .Values.clusterMonitor.tolerations }}
+      tolerations:
+        {{- toYaml .Values.clusterMonitor.tolerations | nindent 8 }}
+{{- end }}
 	      
 {{- if .Values.aws.secretsmanager.enabled }}
       volumes:
