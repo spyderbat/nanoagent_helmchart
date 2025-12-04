@@ -12,6 +12,10 @@ spec:
   selector:
     matchLabels:
       name: spyderbat-nanoagent
+{{- if .Values.nanoagent.updateStrategy }}
+  updateStrategy:
+    {{- toYaml .Values.nanoagent.updateStrategy | nindent 4 }}
+{{- end }}
   template:
     metadata:
       labels:

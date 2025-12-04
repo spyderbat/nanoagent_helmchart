@@ -76,6 +76,13 @@ nanoagent:
   ## The affinity of the pods
   affinity: {}
 
+  ## Update strategy for the DaemonSet
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+
 # Whether or not the clusterMonitor deployment should be created.
 # If set to false the deployment will not be created, this is useful for
 # multiple deployments of the chart on the same cluster, the clusterMonitor
@@ -87,6 +94,13 @@ clusterMonitor:
   
   ## Tolerations
   tolerations: {}
+
+  ## Update strategy for the Deployment
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
 
 
 # Whether or not the write ClusterRole should be created.
