@@ -12,6 +12,10 @@ spec:
   selector:
     matchLabels:
       app: clustermonitor
+{{- if .Values.clusterMonitor.strategy }}
+  strategy:
+    {{- toYaml .Values.clusterMonitor.strategy | nindent 4 }}
+{{- end }}
   template:
     metadata:      
       name: clustermonitor
