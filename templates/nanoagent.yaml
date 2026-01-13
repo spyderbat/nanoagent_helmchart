@@ -95,7 +95,13 @@ spec:
               cpu: {{ .Values.resources.limits.cpu }}
               memory: {{ .Values.resources.limits.memory }}              
           securityContext:
+{{- if .Values.spyderbat_permissions.USE_CAP_SYS_ADMIN }}
+            capabilities:
+              add: ["SYS_ADMIN"]
+{{- end }}
+{{- if .Values.spyderbat_permissions.USE_PRIVILEGED }}
             privileged: true
+{{- end }}
           volumeMounts:
             - name: iproc
               mountPath: /iproc
