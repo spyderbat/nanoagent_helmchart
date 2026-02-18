@@ -139,7 +139,7 @@ spec:
             path: /etc
         - name: hostrun
           hostPath:
-            path: /var/run
+            path: /run
 {{- if .Values.aws.secretsmanager.enabled }}
         - name: secrets-store-inline
           csi:
