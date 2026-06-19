@@ -1,8 +1,8 @@
 # Image location for Spyderbat Nano Agent
 image:
-  registry: public.ecr.aws
+  registry: ghcr.io
   # Full image
-  repository: a6j2k0g1/nano-agent
+  repository: spyderbat/nano-agent
   # Minimal image
   #repository: a6j2k0g1/nano-agent-minimal
   tag: latest
@@ -14,6 +14,11 @@ kubernetesSupport:
   enabled: true
   apiAuth: /var/run/secrets/kubernetes.io/serviceaccount/token
   apiUrl: "https://$(KUBERNETES_SERVICE_HOST)"
+
+# Support supplied additional arguments for the agent
+agent:
+  extra_args: ""
+  curl_args: ""
 
 # Reasonable resource defaults.  May need to be larger on particularly large systems.  We recommend about 3-5% of the system resources for a node.
 # Before deploying to production please make sure these limits are sane to protect your work load.
@@ -43,6 +48,8 @@ serviceAccount:
   annotations: {}
   role: spyderbat-cluster-write
   readonly: false
+
+
 
 microK8sSnap:
   enabled: false

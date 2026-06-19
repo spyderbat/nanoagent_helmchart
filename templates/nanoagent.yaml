@@ -77,6 +77,10 @@ spec:
               value: {{ .Values.CLUSTER_NAME }}
             - name: SPYDERBAT_EPHEMERAL_NODE
               value: "true"
+            - name: EXTRA_ARGS
+              value: {{ .Values.agent.extra_args }}
+            - name: CURL_ARGS
+              value: {{ .Values.agent.curl_args }}	      
             - name: SPYDERBAT_INSTALL_ID
               valueFrom:
                  configMapKeyRef:

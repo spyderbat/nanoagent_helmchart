@@ -30,7 +30,7 @@ spec:
       containers:
         - name: clustermonitor
           image: {{ .Values.image.registry}}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
-          imagePullPolicy: {{ .Values.image.pullpolicy }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
 {{- if .Values.aws.secretsmanager.enabled }}
           command: ["/bin/bash","-c"]
           args: ["AGENT_REGISTRATION_CODE=`cat /mnt/spyderbat-credentials/spyderbat-registration-key` ./boot_strap.sh"]
@@ -62,6 +62,10 @@ spec:
               value: "yes"
             - name: CLUSTER_NAME
               value: {{ .Values.CLUSTER_NAME }}
+            - name: EXTRA_ARGS
+              value: {{ .Values.agent.extra_args }}
+            - name: CURL_ARGS
+              value: {{ .Values.agent.curl_args }}    
             - name: SPYDERBAT_INSTALL_ID
               valueFrom:
                  configMapKeyRef:
