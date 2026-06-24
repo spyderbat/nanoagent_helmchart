@@ -22,6 +22,8 @@ spec:
         name: spyderbat-nanoagent
         k8s-app: spyderbat-nanoagent
         version: v1
+    annotations:
+      rollme: {{ randAlphaNum 5 | quote }}
 {{- with .Values.podLabels }}
 {{ toYaml . | indent 9 }}
 {{- end }}

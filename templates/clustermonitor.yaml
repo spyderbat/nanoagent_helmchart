@@ -22,6 +22,8 @@ spec:
       namespace: {{ .Release.Namespace }}
       labels:
         app: clustermonitor
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
     spec:
       serviceAccountName: {{ .Values.serviceAccount.name }}
 {{- if .Values.priorityClassDefault.enabled }}
