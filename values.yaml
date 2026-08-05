@@ -63,6 +63,9 @@ CLUSTER_NAME: "none"
 # "allbutredacted" uses a set of rules and omits everything but the envionrment variables that look like they contain secrets.  The secrets are encrypted.
 OMITENVIRONMENT: "no"
 
+# Additional environment variables, appended to the containers' env.
+extraEnv: []
+
 # Additional pod labels
 podLabels: {}
 
