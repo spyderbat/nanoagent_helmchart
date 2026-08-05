@@ -93,6 +93,9 @@ spec:
             - name: OMITENVIRONMENT
               value: "{{ .Values.OMITENVIRONMENT }}"
 {{- end }}
+{{- with .Values.extraEnv }}
+{{- toYaml . | nindent 12 }}
+{{- end }}
           resources:
             requests:
               cpu: {{ .Values.resources.requests.cpu }}
