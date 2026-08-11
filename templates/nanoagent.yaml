@@ -22,13 +22,12 @@ spec:
         name: spyderbat-nanoagent
         k8s-app: spyderbat-nanoagent
         version: v1
-    annotations:
-      rollme: {{ randAlphaNum 5 | quote }}
 {{- with .Values.podLabels }}
-{{ toYaml . | indent 9 }}
+{{ toYaml . | indent 8 }}
 {{- end }}
-{{- if .Values.nanoagent.pod.annotations }}
       annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+{{- if .Values.nanoagent.pod.annotations }}
 {{ toYaml .Values.nanoagent.pod.annotations | indent 8 }}
 {{- end }}
     spec:
